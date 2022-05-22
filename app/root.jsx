@@ -7,6 +7,13 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
+import { useLoaderData, Link, Form } from "@remix-run/react";
+import { useState } from "react";
+import { getSession } from "~/sessions.server";
+
+import connectDb from "~/db/connectDb.server";
+
+import Header from "./components/header"
 
 import styles from "./styles/app.css";
 
@@ -25,9 +32,30 @@ export function links() {
   ];
 }
 
+export async function loader({ request }) {
+  const db = await connectDb();
+  const session = await getSession(request.headers.get("cookie"));
+  if (session) {
+    const userId = session.get("userId");
+    const user = await db.models.Users.findById(userId);
+    if (user) {
+      return {
+        userId: userId,
+        userType: user.user_type,
+        userName: user.username
+      }
+    }
+  }
+  return {
+    userId: null,
+  }
+
+}
+
 
 
 export default function App() {
+  var loaderData = useLoaderData();
   return (
     <html lang="en">
       <head>
@@ -36,9 +64,7 @@ export default function App() {
       </head>
       <body>
         <header>
-          <a href="/login">Login</a> <br/>
-          <a href="/register">Register</a><br/>
-          <a href="/logout">Log out</a><br/>
+          <Header props={loaderData} />
         </header>
         <Outlet />
         <ScrollRestoration />
