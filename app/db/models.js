@@ -1,9 +1,12 @@
-import { mongoose } from "mongoose";
+import {
+  mongoose
+} from "mongoose";
 
-const { Schema } = mongoose;
+const {
+  Schema
+} = mongoose;
 
 const students = new Schema({
-  name: String,
   date: Date,
   bio: String,
   tags: Array,
@@ -11,13 +14,13 @@ const students = new Schema({
   website_link: String,
   favourite: Boolean,
 
-  
+
 });
 
 const companies = new Schema({
   favourite: Array,
 
-  
+
 });
 
 const users = new Schema({
@@ -25,6 +28,10 @@ const users = new Schema({
     type: String,
     required: true,
     minLength: [3, "That's too short"],
+  },
+  name: {
+    type: String,
+    required: true,
   },
   password: {
     type: String,
@@ -41,11 +48,13 @@ const users = new Schema({
     required: false,
   },
 
-  userType: String,
+  user_type: {
+    type: String,
+    required: true,
+  },
 });
 
-export const models = [
-  {
+export const models = [{
     name: "Students",
     schema: students,
     collection: "students",

@@ -32,9 +32,13 @@ export async function action({ request }) {
   } else if (form.get("password").trim() == form.get("repeatPassword").trim()) {
     let hash = form.get("password").trim();
     var pwd = bcrypt.hashSync(hash, 10);
+
     const newUser = await db.models.Users.create({
       username: form.get("username").trim(),
       password: pwd,
+      name: form.get("name").trim(),
+      user_type: form.get("user_type"),
+
     });
     session.set("userId", newUser._id);
     return redirect("/", {
@@ -48,6 +52,10 @@ export async function action({ request }) {
 export async function loader({ request }) {
   const session = await getSession(request.headers.get("Cookie"));
 
+  var userId = session.has("userId");
+  if (userId) {
+    return redirect("/");
+  };
   return json({
     userId: session.has("userId"),
   });
@@ -60,71 +68,83 @@ export default function Register() {
   const { userId } = useLoaderData();
   const actionData = useActionData();
 
-  if (!userId) {
-    return (
-      <div className="flex justify-around content-around">
-        <div className="m-10 p-5 flex-col w-8/12 pb-32  content-center justify-center text-center border-2 border-teal-800 rounded ">
-          <h1 className="p-1 text-2xl font-bold">Register</h1>
-          <br />
 
-          {actionData?.errorMessage ? (
-            <p
-              className="text-red-500 font-bold my-2"
-              // className={`p-2 rounded-md w-full ${
-              //       actionData?.errors.description
-              //         ? "border-2 border-red-500"
-              //         : null
-              //     }
+  return (
+    <div className="flex justify-around content-around">
+      <div className="m-10 p-5 flex-col w-8/12 pb-32  content-center justify-center text-center border-2 border-teal-800 rounded ">
+        <h1 className="p-1 text-2xl font-bold">Register</h1>
+        <br />
+
+        {actionData?.errorMessage ? (
+          <p
+            className="text-red-500 font-bold my-2"
+          // className={`p-2 rounded-md w-full ${
+          //       actionData?.errors.description
+          //         ? "border-2 border-red-500"
+          //         : null
+          //     }
+          >
+            {actionData.errorMessage}
+          </p>
+        ) : null}
+        <Form method="post" className="">
+          <input
+            type="text"
+            name="username"
+            id="username"
+            placeholder="Email"
+            className="block text-black my-3 border rounded px-2 py-1 w-full"
+          />
+
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Name"
+            className="block text-black my-3 border rounded px-2 py-1 w-full"
+          />
+
+          <input type="radio" id="student" name="user_type" value="student" />
+          <label for="student">Student</label>
+          <input type="radio" id="company" name="user_type" value="company" />
+          <label for="company">Company</label>
+
+
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+            className="block text-black my-3 border rounded px-2 py-1 w-full"
+          />
+
+          <input
+            type="password"
+            name="repeatPassword"
+            id="repeatPassword"
+            placeholder="Confirm password"
+            className="block text-black my-3 border rounded px-2 py-1 w-full"
+          />
+          <div>
+            <button
+              type="submit"
+              className="my-3 p-2 border rounded text-white font-bold bg-teal-800"
             >
-              {actionData.errorMessage}
+              Register
+            </button>
+
+            <p>
+              <span>Already have an account? </span>
+              <Link to="/login" className="underline">
+                Log In
+              </Link>
             </p>
-          ) : null}
-          <Form method="post" className="">
-            <input
-              type="text"
-              name="username"
-              id="username"
-              placeholder="Username"
-              className="block text-black my-3 border rounded px-2 py-1 w-full"
-            />
-
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Password"
-              className="block text-black my-3 border rounded px-2 py-1 w-full"
-            />
-
-            <input
-              type="password"
-              name="repeatPassword"
-              id="repeatPassword"
-              placeholder="Confirm password"
-              className="block text-black my-3 border rounded px-2 py-1 w-full"
-            />
-            <div>
-              <button
-                type="submit"
-                className="my-3 p-2 border rounded text-white font-bold bg-teal-800"
-              >
-                Register
-              </button>
-
-              <p>
-                <span>Already have an account? </span> 
-                <Link to="/login" className="underline">
-                  Log In
-                </Link>
-              </p>
-            </div>
-          </Form>
-        </div>
+          </div>
+        </Form>
       </div>
-    );
-  } else {
-    return redirect("/");
-  }
+    </div>
+  );
+
 }
 
 export { CatchBoundary, ErrorBoundary };

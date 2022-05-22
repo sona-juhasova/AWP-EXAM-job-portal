@@ -36,8 +36,9 @@ export default function App() {
       </head>
       <body>
         <header>
-          <a href="/login">Login</a>
-          <a href="/register">Register</a>
+          <a href="/login">Login</a> <br/>
+          <a href="/register">Register</a><br/>
+          <a href="/logout">Log out</a><br/>
         </header>
         <Outlet />
         <ScrollRestoration />
