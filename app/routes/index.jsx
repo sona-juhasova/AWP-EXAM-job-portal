@@ -2,14 +2,14 @@ import { useLoaderData, Link, Form } from "@remix-run/react";
 import { useState } from "react";
 import { requireUserSession } from "~/sessions.server";
 
-import connectDb from "~/db/connectDb.server";   
+import connectDb from "~/db/connectDb.server";
 
 export async function loader({ request }) {
   const db = await connectDb();
   const url = new URL(request.url);
   const session = await requireUserSession(request);
 
-  const userId = session.get("userId"); 
+  const userId = session.get("userId");
 
   //  search
   var searchParams = {};
@@ -43,11 +43,11 @@ export async function loader({ request }) {
       searchParams.favourite = true;
     }
   }
-  searchParams.userId = userId;
+  //searchParams.userId = userId;
   const students = await db.models.Students.find(searchParams).sort(
     filterParams
   );
-  return students; 
+  return students;
 }
 
 export default function Index() {
@@ -55,7 +55,7 @@ export default function Index() {
   const [toggle, setToggle] = useState(false);
   const handleClick = (e) => setToggle(!toggle);
   return (
-    <div>
+    <div className="home-page">
 
       <h1>list of students here</h1>
 
@@ -65,15 +65,43 @@ export default function Index() {
             <div
               key={student._id}
               onClick={handleClick}
-              className="w-full flex justify-center items-center hover:shadow-inner duration-300 transition-all hover:cursor-pointer hover:shadow-slate-900 rounded-md text-base p-4 "
+              className="student-item"
             >
-              <Link to={"/profile/" + student._id}>{student.name}</Link>
+
+              <img src="{student.profile_img}" alt="Profile image" />
+
+              <div className="info-wrapper">
+                <p className="student-name">{student.name}</p>
+                <p>{student.bio}</p>
+
+                <div className="tags-wrapper">
+                  
+                  {student.tags.slice(0, 6).map((tag) => {
+                    return (
+                      <div
+                        key={tag}
+                        className="tag-item"
+                      >
+                        <p>{tag}</p>
+                      </div>)
+
+                  })}
+                </div>
+
+                <div className="student-item-footer">
+
+                  <p>Created: {student.date}</p>
+
+                  <Link to={"/profile/" + student._id}>Read more</Link>
+                </div>
+              </div>
+
             </div>
           );
         })}
       </div>
 
-     
+
     </div>
   );
 }

@@ -1,0 +1,387 @@
+/* fonts */
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+* {
+    font-family: Roboto;
+    color: #363636;
+    padding: 0;
+    margin: 0;
+}
+
+ 
+/* header */
+
+header {
+    background-color: #DBEBEF; 
+    height: 50px;
+}
+
+header div {
+    display: flex;
+    flex-direction: row; 
+    height: 100%;
+    width: 100%;
+    align-items: center; 
+
+}
+
+
+header div a {
+    margin: 0 20px 0 0;
+    text-decoration: none;
+}
+
+header div h1 {
+    font-size: 20px;
+    text-transform: uppercase;
+    font-family: Josefin Sans;
+    font-weight: 400;
+    margin: 0 auto 0 20px;
+
+
+}
+
+
+
+
+
+
+
+/* Login & Register */
+
+.form-page { 
+    display: flex;
+    flex-direction: column;
+    width: 100%; 
+    height: calc(100vh - 250px);
+    justify-content: center;
+    align-items: center;
+
+}
+
+.form-wrapper {   
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+
+}
+
+.form-wrapper h1 {
+    font-size: 80px;
+    text-transform: uppercase;
+    font-family: Josefin Sans;
+    font-weight: 400;
+
+
+}
+
+.form-login {
+    width: 400px; 
+    display: flex; 
+    flex-direction: column;   
+}
+
+.form-login input {
+    border:none;
+    border-bottom: 1px solid #5e5e5e;
+    padding: 5px 0px;
+    outline: none;
+    margin: 10px 0;
+ }
+
+[placeholder]:focus::-webkit-input-placeholder {
+    transition: text-indent 0.4s 0.4s ease; 
+    text-indent: -100%;
+    opacity: 1;
+ }
+
+
+ .form-login .button-wrapper { 
+     margin: 10px auto; 
+     width: 100%;
+     align-items: auto;
+     display: flex;
+     flex-direction: column;
+
+ }
+
+ .form-login .button-wrapper button {
+    background-color: #DBEBEF; 
+    padding: 10px 30px;
+    border: none;
+    outline: none;
+    text-transform: uppercase;
+    font-size: 18px;
+    margin-bottom: 10px;
+
+
+}
+
+.form-login .button-wrapper p {
+    text-align: center;
+}
+
+.radio-btns {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.radio-btns label {
+    margin: 0 20px 0 5px;
+}
+
+
+/* home page - list of students */
+
+.home-page {
+    min-height: calc(100vh - 250px);
+}
+
+.home-page .student-item { 
+    display: flex;
+    flex-direction: row;
+    /* width: 440px;
+    height: 180px; */
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.16);
+    border-radius: 10px;
+    justify-content: start;
+    alignt-items: center;
+    padding: 20px;
+    font-weight: 100;
+    width: fit-content;
+
+ 
+}
+
+.home-page .student-item img {
+    width: 180px;
+    height: 180px;
+    border: 1px solid black;
+    margin-right: 20px;
+    object-fit: cover;
+}
+
+
+.home-page .student-item .info-wrapper {
+    height: 180px; 
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+
+}
+
+.home-page .student-item p {  
+    font-weight: 100;
+
+}
+
+.home-page .student-item .student-name {
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+.home-page .student-item-footer {
+    justify-content: space-between; 
+    display: flex;
+    flex-direction: row;
+    margin-top: auto;
+
+}
+
+
+
+.home-page .tags-wrapper { 
+    display: flex;
+    flex-direction: row;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.home-page .tags-wrapper .tag-item { 
+    border-radius: 5px;
+    background: #dbebef;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.16);
+    padding: 5px 10px;
+    margin: 0 10px 10px 0; 
+
+}
+
+/* profile page */
+
+.profile-page {
+    min-height: calc(100vh - 250px);
+    justify-content: center;
+    align-content: center;
+    display: flex; 
+    width: 100vw;
+
+}
+
+.link-back {
+    position: absolute;
+    top: 70px;
+    left: 20px;
+    text-decoration: none;
+    psoition: fixed;
+}
+
+
+.profile-page .student-item { 
+    display: flex;
+    flex-direction: column;   
+    font-weight: 100;
+    width: fit-content; 
+    margin-top: 50px; 
+
+ 
+}
+
+.profile-page .student-item .student-item-top {
+    display: flex;
+    flex-direction: row;  
+    justify-content: start;
+    alignt-items: center; 
+    font-weight: 100;
+    width: fit-content; 
+}
+
+.profile-page .student-item .student-item-top  img {
+    width: 300px;
+    height: 300px;
+    border: 1px solid black;
+    margin-right: 20px;
+    object-fit: cover;
+}
+
+
+.profile-page .student-item .student-item-top  .info-wrapper {
+
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+
+}
+
+.profile-page .student-item p {  
+    font-weight: 100;
+
+}
+
+.profile-page .student-item .student-name {
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+.profile-page .student-item-footer { 
+    display: flex;
+    flex-direction: column; 
+
+}
+
+
+
+.profile-page .tags-wrapper { 
+    display: flex;
+    flex-direction: row;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.profile-page .tags-wrapper .tag-item { 
+    border-radius: 5px;
+    background: #dbebef;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.16);
+    padding: 5px 10px;
+    margin: 0 10px 10px 0; 
+
+}
+
+/* update page */
+
+.update-page {
+    min-height: calc(100vh - 250px);
+    justify-content: center;
+    align-content: center;
+    display: flex; 
+    width: 100vw;
+
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+
+
+
+
+/* footer */
+
+footer .footer { 
+    background-color: #DBEBEF; 
+    clip-path: polygon(50% 50%, 100% 0, 100% 100%, 0 100%, 0 0);
+    width: 100%;
+    height: 200px;
+}

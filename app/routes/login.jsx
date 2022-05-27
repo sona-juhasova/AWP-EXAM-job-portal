@@ -56,56 +56,46 @@ export default function LogIn() {
     return (
       <div>
         <h1>Congrats You are logged in</h1>
-        <Link to="/" className="underline">
-          Go to Your snippets
+        <Link to="/" >
+          Home
         </Link>
       </div>
     );
   } else {
     return (
-      <div className="flex  justify-around content-around ">
-        <div className="m-10 p-5 flex-col w-8/12  content-center justify-center  text-center border-2 border-teal-800 rounded ">
-          <h1 className="p-1 text-2xl font-bold">Log In</h1>
+      <div className="form-page">
+        <div className="form-wrapper">
+          <h1>Job Portal</h1>
           <br />
           {actionData?.errorMessage ? (
-            <p
-              className="text-red-500 font-bold my-3"
-              // className={`p-2 rounded-md w-full ${
-              //       actionData?.errors.description
-              //         ? "border-2 border-red-500"
-              //         : null
-              //     }
-            >
+            <p>
               {actionData.errorMessage}
             </p>
           ) : null}
-          <form method="post" className="">
+          <form method="post" className="form-login">
             <input
               type="text"
               name="username"
               id="username"
-              placeholder="Username"
-              className="block my-3 border rounded px-2 py-1 w-full"
+              placeholder="Username" 
             />
 
             <input
               type="password"
               name="password"
               id="password"
-              placeholder="password"
-              className="block my-3 border rounded px-2 py-1 w-full"
+              placeholder="password" 
             />
 
-            <div>
+            <div className="button-wrapper">
               <button
-                type="submit"
-                className="my-3 p-2 border rounded text-white bg-teal-800"
+                type="submit" 
               >
                 Log In
               </button>
               <p>
                 <span>Don't have an account? </span>
-                <Link to="/register" className="underline">
+                <Link to="/register" >
                   Register
                 </Link>
               </p>
@@ -114,9 +104,6 @@ export default function LogIn() {
         </div>
       </div>
     );
-  }
-  // } else {
-  //   return redirect("/");
-  // }
+  } 
 }
 export { CatchBoundary, ErrorBoundary };

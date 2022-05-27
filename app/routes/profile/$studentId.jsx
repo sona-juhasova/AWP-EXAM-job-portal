@@ -42,56 +42,78 @@ export default function Index() {
     return (
         <div
             id="content-section"
-            className="md:w-[68%] w-full flex flex-col  h-full overflow-y-auto "
+            className="profile-page"
         >
-            <Link to="/" className="inline-block mt-3 p-5 font-bold underline ">
+            <Link to="/" className="link-back">
                 Back
             </Link>
-            <div key={student._id}>
-                <div className=" flex flex-col md:m-12 m-4 ">
-                    <h1 className=" mb-5 ">{student.name}</h1>
-                    <p className=" mb-12 font-medium ">{student.bio}</p>
-                    <p className=" mb-12 font-medium ">{student.tags}</p>
+            <div
+                key={student._id}
+                className="student-item"
+            >
+                <div className="student-item-top">
 
-                    
+                    <img src="{student.profile_img}" alt="Profile image" />
 
-                    <div className=" fixed bottom-5 md:right-5 left-[11%] md:left-auto flex ">
-                        <Form method="post">
-                            <input
-                                type="hidden"
-                                name="_id"
-                                defaultValue={student._id}
-                            ></input>
-                            <button
-                                type="submit"
-                                name="action"
-                                value="fav_update"
-                                id="fav_icon"
-                                style={{ backgroundColor: favButtonClassName }}
-                                className={` ml-3 md:py-3 md:px-5 py-1 px-3 font-medium shadown-lg shadow-gray-900   rounded-md text-white`}
-                            >
-                                Favourite &#9733;
-                            </button>
-                        </Form>
-
-
-                        <Form method="post">
-                            <input
-                                type="hidden"
-                                name="_id"
-                                defaultValue={student._id}
-                            ></input>
-                            <button
-                                type="submit"
-                                name="action"
-                                value="delete"
-                                className=" ml-3 md:py-3 md:px-5 py-1 px-3 font-medium shadown-lg shadow-gray-900 bg-student-emerald rounded-md text-white "
-                            >
-                                Delete
-                            </button>
-                        </Form>
+                    <div className="info-wrapper">
+                        <p className="student-name">{student.name}</p>
+                        <p>{student.bio}</p>
                     </div>
                 </div>
+                <div className="student-item-footer">
+
+                    <div className="tags-wrapper">
+
+                        {student.tags.map((tag) => {
+                            return (
+                                <div
+                                    key={tag}
+                                    className="tag-item"
+                                >
+                                    <p>{tag}</p>
+                                </div>)
+
+                        })}
+                    </div>
+
+
+                    <Link to="{student.website_link}" className="link-website">
+                        Website link
+                    </Link>
+                    <Link to="{student.linkedin_link}" className="link-website">
+                        Linkedin link 
+                    </Link>
+
+                    <p>Created: {student.date}</p>
+                </div>
+
+
+
+
+
+                <div className=" fixed bottom-5 md:right-5 left-[11%] md:left-auto flex ">
+                    <Form method="post">
+                        <input
+                            type="hidden"
+                            name="_id"
+                            defaultValue={student._id}
+                        ></input>
+                        <button
+                            type="submit"
+                            name="action"
+                            value="fav_update"
+                            id="fav_icon"
+                            style={{ backgroundColor: favButtonClassName }}
+                            className={` ml-3 md:py-3 md:px-5 py-1 px-3 font-medium shadown-lg shadow-gray-900   rounded-md text-white`}
+                        >
+                            Favourite &#9733;
+                        </button>
+                    </Form>
+
+
+
+                </div>
+
             </div>
         </div>
     );

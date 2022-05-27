@@ -35,11 +35,20 @@ export async function action({ request }) {
 
     const newUser = await db.models.Users.create({
       username: form.get("username").trim(),
-      password: pwd,
-      name: form.get("name").trim(),
+      password: pwd, 
       user_type: form.get("user_type"),
 
     });
+  
+    var userType = form.get("user_type");
+    if(userType === "student" )
+    {
+      const newStudent = await db.models.Students.create({
+        userId : newUser._id,
+        tags: [],
+        published : false
+      });
+    }
     session.set("userId", newUser._id);
     return redirect("/", {
       headers: {
@@ -70,52 +79,37 @@ export default function Register() {
 
 
   return (
-    <div className="flex justify-around content-around">
-      <div className="m-10 p-5 flex-col w-8/12 pb-32  content-center justify-center text-center border-2 border-teal-800 rounded ">
-        <h1 className="p-1 text-2xl font-bold">Register</h1>
+    <div className="form-page">
+      <div className="form-wrapper">
+        <h1>Job Portal</h1>
         <br />
 
         {actionData?.errorMessage ? (
-          <p
-            className="text-red-500 font-bold my-2"
-          // className={`p-2 rounded-md w-full ${
-          //       actionData?.errors.description
-          //         ? "border-2 border-red-500"
-          //         : null
-          //     }
-          >
+          <p>
             {actionData.errorMessage}
           </p>
         ) : null}
-        <Form method="post" className="">
+        <Form method="post" className="form-login">
           <input
             type="text"
             name="username"
             id="username"
             placeholder="Email"
-            className="block text-black my-3 border rounded px-2 py-1 w-full"
           />
-
-          <input
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Name"
-            className="block text-black my-3 border rounded px-2 py-1 w-full"
-          />
-
-          <input type="radio" id="student" name="user_type" value="student" />
-          <label for="student">Student</label>
-          <input type="radio" id="company" name="user_type" value="company" />
-          <label for="company">Company</label>
-
+ 
+          
+          <div className="radio-btns">
+            <input type="radio" id="student" name="user_type" value="student" />
+            <label for="student">Student</label>
+            <input type="radio" id="company" name="user_type" value="company" />
+            <label for="company">Company</label>
+          </div>
 
           <input
             type="password"
             name="password"
             id="password"
             placeholder="Password"
-            className="block text-black my-3 border rounded px-2 py-1 w-full"
           />
 
           <input
@@ -123,9 +117,8 @@ export default function Register() {
             name="repeatPassword"
             id="repeatPassword"
             placeholder="Confirm password"
-            className="block text-black my-3 border rounded px-2 py-1 w-full"
           />
-          <div>
+          <div className="button-wrapper">
             <button
               type="submit"
               className="my-3 p-2 border rounded text-white font-bold bg-teal-800"

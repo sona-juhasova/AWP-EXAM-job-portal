@@ -70,7 +70,11 @@ export default function App() {
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
+        <footer>
+          <div className="footer"></div>
+        </footer>
       </body>
+
     </html>
   );
 }

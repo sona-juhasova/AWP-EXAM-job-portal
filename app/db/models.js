@@ -1,6 +1,7 @@
 import {
   mongoose
 } from "mongoose";
+import { boolean } from "webidl-conversions";
 
 const {
   Schema
@@ -11,9 +12,10 @@ const students = new Schema({
   bio: String,
   tags: Array,
   linkedin_link: String,
-  website_link: String,
-  favourite: Boolean,
-
+  website_link: String, 
+  profile_img: String,
+  userId: String,
+  published: Boolean,
 
 });
 
@@ -28,11 +30,7 @@ const users = new Schema({
     type: String,
     required: true,
     minLength: [3, "That's too short"],
-  },
-  name: {
-    type: String,
-    required: true,
-  },
+  }, 
   password: {
     type: String,
     required: true,
