@@ -100,9 +100,9 @@ export default function Register() {
           
           <div className="radio-btns">
             <input type="radio" id="student" name="user_type" value="student" />
-            <label for="student">Student</label>
+            <label htmlFor="student">Student</label>
             <input type="radio" id="company" name="user_type" value="company" />
-            <label for="company">Company</label>
+            <label htmlFor="company">Company</label>
           </div>
 
           <input

@@ -38,7 +38,7 @@ export async function action({ request }) {
         name: "Kate Meowsy",
         date: new Date(),
         bio: "Fill in bio",
-        profile_img: "https://media.wired.co.uk/photos/60c8730fa81eb7f50b44037e/3:2/w_3329,h_2219,c_limit/1521-WIRED-Cat.jpeg",
+        profile_img: "https://www.thevetonfourth.com/wp-content/uploads/2019/12/cat-looking-up.jpg",
         tags: ["HTML", "CSS"],
         linkedin_link: "https://www.linkedin.com/feed/",
         website_link: "https://www.google.com/",
@@ -78,7 +78,7 @@ newStudent = await db.models.Students.create({
     name: "Louise Fluff",
     date: new Date(),
     bio: "Fill in bio",
-    profile_img: "https://media.wired.co.uk/photos/60c8730fa81eb7f50b44037e/3:2/w_3329,h_2219,c_limit/1521-WIRED-Cat.jpeg",
+    profile_img: "https://media.npr.org/assets/img/2021/08/11/gettyimages-1279899488_wide-e28def62c2d01ee6368d9aa312c68998415b5e72-s1100-c50.jpg",
     tags: ["HTML", "CSS"],
     linkedin_link: "https://www.linkedin.com/feed/",
     website_link: "https://www.google.com/",
@@ -104,7 +104,7 @@ export default function Seed() {
                 </button>
             </Form>
             
-            <h2>Use following logins:</h2>
+            <h2>To log in you can use following emails:</h2>
             <p>Emails:<br/>
             kate@jobportal.com<br/>
             john@jobportal.com<br/>
