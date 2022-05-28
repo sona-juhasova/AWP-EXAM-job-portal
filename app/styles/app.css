@@ -159,8 +159,7 @@ header div h1 {
 
 .home-page .student-item img {
     width: 180px;
-    height: 180px;
-    border: 1px solid black;
+    height: 180px; 
     margin-right: 20px;
     object-fit: cover;
 }
@@ -252,8 +251,7 @@ header div h1 {
 
 .profile-page .student-item .student-item-top  img {
     width: 300px;
-    height: 300px;
-    border: 1px solid black;
+    height: 300px; 
     margin-right: 20px;
     object-fit: cover;
 }

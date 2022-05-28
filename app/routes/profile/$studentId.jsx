@@ -53,7 +53,7 @@ export default function Index() {
             >
                 <div className="student-item-top">
 
-                    <img src="{student.profile_img}" alt="Profile image" />
+                    <img src={student.profile_img} alt="Profile image" />
 
                     <div className="info-wrapper">
                         <p className="student-name">{student.name}</p>
@@ -76,14 +76,10 @@ export default function Index() {
                         })}
                     </div>
 
-
-                    <Link to="{student.website_link}" className="link-website">
-                        Website link
-                    </Link>
-                    <Link to="{student.linkedin_link}" className="link-website">
-                        Linkedin link 
-                    </Link>
-
+                        <a href={student.website_link} rel="noreferrer" className="link-website" target="_blank">Website link</a>
+                        <a href={student.linkedin_link} rel="noreferrer" className="link-website" target="_blank">Linkedin link</a>
+                    
+                     
                     <p>Created: {student.date}</p>
                 </div>
 

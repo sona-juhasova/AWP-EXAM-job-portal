@@ -49,6 +49,7 @@ export async function action({ request }) {
             name: body.get("name"),
             date: new Date(),
             bio: body.get("bio"),
+            profile_img: body.get("profile_img"),
             tags: body.getAll("tags"),
             linkedin_link: body.get("linkedin_link"),
             website_link: body.get("website_link"),

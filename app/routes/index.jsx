@@ -16,38 +16,38 @@ export async function loader({ request }) {
   var searchParams = {};
   const searchQuery = url.searchParams.get("searchQuery");
   if (searchQuery != null && searchQuery != "") {
-    searchParams.title = { $regex: searchQuery };
+    searchParams.name = { $regex: searchQuery };
   }
 
-  // filter
+  
 
-  const filter = url.searchParams.get("filter_selector");
-  let filterParams = {};
+  // // filter
 
-  if (filter != null && filter != "") {
-    if (filter == "title_az") {
-      //  sort title a-z
-      filterParams = { title: 1 };
-    }
-    if (filter == "title_za") {
-      //  sort title a-z
-      filterParams = { title: -1 };
-    }
+  // const filter = url.searchParams.get("filter_selector");
+  // let filterParams = {};
 
-    if (filter == "last_updated") {
-      //  sort by updated
-      // searchParams.sort({date: 1});
-      filterParams = { date: -1 };
-    }
-    if (filter == "fav") {
-      //  view favourite
-      searchParams.favourite = true;
-    }
-  }
+  // if (filter != null && filter != "") {
+  //   if (filter == "title_az") {
+  //     //  sort title a-z
+  //     filterParams = { title: 1 };
+  //   }
+  //   if (filter == "title_za") {
+  //     //  sort title a-z
+  //     filterParams = { title: -1 };
+  //   }
+
+  //   if (filter == "last_updated") {
+  //     //  sort by updated
+  //     // searchParams.sort({date: 1});
+  //     filterParams = { date: -1 };
+  //   }
+  //   if (filter == "fav") {
+  //     //  view favourite
+  //     searchParams.favourite = true;
+  //   }
+  // }
   //searchParams.userId = userId;
-  const students = await db.models.Students.find(searchParams).sort(
-    filterParams
-  );
+  const students = await db.models.Students.find(searchParams);
   return students;
 }
 
@@ -59,6 +59,49 @@ export default function Index() {
     <div className="home-page">
 
       <h1>list of students here</h1>
+      <Form method="GET" className="">
+          <input
+            type="text"
+            name="searchQuery"
+            id="myInput"
+            placeholder="Search"
+            title="search"
+            className=" w-[80%] h-5 shadow-inner p-5 rounded-lg bg-snippet-dark-1 "
+          ></input>
+          <button
+            type="submit"
+            className=" w-[10%] ml-[5px] hover:cursor-pointer "
+          >
+            search
+          </button>
+        </Form>
+        <Form method="GET" className="">
+        
+
+        <div id="select_tags">
+                            <div>
+                                <input type="checkbox" id="html" name="tags" value="HTML" />
+                                <label htmlFor="html">HTML</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="css" name="tags" value="CSS"  />
+                                <label htmlFor="html">CSS</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="javascript" name="tags" value="JavaScript"  />
+                                <label htmlFor="javascript">JavaScript</label>
+                            </div>
+
+                        </div>
+          <button
+            type="submit"
+            className=" w-[10%] ml-[5px] hover:cursor-pointer "
+          >
+            search
+          </button>
+        </Form>
+
+
 
       <div id="list-id">
         {students.filter(student => student.published == "on").map((student) => {
@@ -70,7 +113,7 @@ export default function Index() {
               className="student-item"
             >
 
-              <img src={student.profile_img} alt="Profile image" />
+              <img src={student.profile_img} alt="Profile" />  
 
               <div className="info-wrapper">
                 <p className="student-name">{student.name}</p>
