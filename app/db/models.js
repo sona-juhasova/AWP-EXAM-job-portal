@@ -9,13 +9,14 @@ const {
 
 const students = new Schema({
   date: Date,
+  name: String,
   bio: String,
   tags: Array,
   linkedin_link: String,
   website_link: String, 
   profile_img: String,
   userId: String,
-  published: Boolean,
+  published: String,
 
 });
 

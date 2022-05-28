@@ -3,13 +3,14 @@ import { useState } from "react";
 import { requireUserSession } from "~/sessions.server";
 
 import connectDb from "~/db/connectDb.server";
+import { url } from "inspector";
 
 export async function loader({ request }) {
   const db = await connectDb();
   const url = new URL(request.url);
-  const session = await requireUserSession(request);
+  //const session = await requireUserSession(request);
 
-  const userId = session.get("userId");
+  //const userId = session.get("userId");
 
   //  search
   var searchParams = {};
@@ -60,7 +61,8 @@ export default function Index() {
       <h1>list of students here</h1>
 
       <div id="list-id">
-        {students.map((student) => {
+        {students.filter(student => student.published == "on").map((student) => {
+          
           return (
             <div
               key={student._id}
@@ -68,7 +70,7 @@ export default function Index() {
               className="student-item"
             >
 
-              <img src="{student.profile_img}" alt="Profile image" />
+              <img src={student.profile_img} alt="Profile image" />
 
               <div className="info-wrapper">
                 <p className="student-name">{student.name}</p>
