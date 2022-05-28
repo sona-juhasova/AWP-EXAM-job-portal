@@ -1,9 +1,8 @@
 import { useLoaderData, Link, Form } from "@remix-run/react";
-import { useState } from "react";
 import { requireUserSession } from "~/sessions.server";
 
 import connectDb from "~/db/connectDb.server";
-import { url } from "inspector";
+
 
 export async function loader({ request }) {
   const db = await connectDb();
@@ -21,44 +20,36 @@ export async function loader({ request }) {
 
   
 
-  // // filter
-
-  // const filter = url.searchParams.get("filter_selector");
-  // let filterParams = {};
-
-  // if (filter != null && filter != "") {
-  //   if (filter == "title_az") {
-  //     //  sort title a-z
-  //     filterParams = { title: 1 };
-  //   }
-  //   if (filter == "title_za") {
-  //     //  sort title a-z
-  //     filterParams = { title: -1 };
-  //   }
-
-  //   if (filter == "last_updated") {
-  //     //  sort by updated
-  //     // searchParams.sort({date: 1});
-  //     filterParams = { date: -1 };
-  //   }
-  //   if (filter == "fav") {
-  //     //  view favourite
-  //     searchParams.favourite = true;
-  //   }
-  // }
-  //searchParams.userId = userId;
+  
+ 
+  
+ 
   const students = await db.models.Students.find(searchParams);
-  return students;
+
+  // filter
+  let checked_tags = url.searchParams.getAll("tags");
+  var fitleredStudents = students;
+   
+  checked_tags.forEach((value)=>{
+
+      fitleredStudents = fitleredStudents.filter((student)=>{
+
+        return (student.tags.indexOf(value) > -1);
+
+      });
+  });
+  
+
+
+  return fitleredStudents;
 }
 
 export default function Index() {
   var students = useLoaderData();
-  const [toggle, setToggle] = useState(false);
-  const handleClick = (e) => setToggle(!toggle);
+
   return (
     <div className="home-page">
 
-      <h1>list of students here</h1>
       <Form method="GET" className="">
           <input
             type="text"
@@ -66,11 +57,9 @@ export default function Index() {
             id="myInput"
             placeholder="Search"
             title="search"
-            className=" w-[80%] h-5 shadow-inner p-5 rounded-lg bg-snippet-dark-1 "
           ></input>
           <button
             type="submit"
-            className=" w-[10%] ml-[5px] hover:cursor-pointer "
           >
             search
           </button>
@@ -95,9 +84,8 @@ export default function Index() {
                         </div>
           <button
             type="submit"
-            className=" w-[10%] ml-[5px] hover:cursor-pointer "
           >
-            search
+            filter
           </button>
         </Form>
 
@@ -109,7 +97,7 @@ export default function Index() {
           return (
             <div
               key={student._id}
-              onClick={handleClick}
+            
               className="student-item"
             >
 
