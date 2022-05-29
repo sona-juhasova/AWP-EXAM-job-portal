@@ -25,7 +25,7 @@ export async function action({ request }) {
     var pwd = bcrypt.hashSync("jobportal", 10);
 
 
-// user 1
+    // user 1
     var newUser = await db.models.Users.create({
         username: "kate@jobportal.com",
         password: pwd,
@@ -65,25 +65,25 @@ export async function action({ request }) {
         published: "on",
     });
 
-// user 3
-newUser = await db.models.Users.create({
-    username: "louise@jobportal.com",
-    password: pwd,
-    user_type: "student",
+    // user 3
+    newUser = await db.models.Users.create({
+        username: "louise@jobportal.com",
+        password: pwd,
+        user_type: "student",
 
-});
+    });
 
-newStudent = await db.models.Students.create({
-    userId: newUser._id,
-    name: "Louise Fluff",
-    date: new Date(),
-    bio: "Fill in bio",
-    profile_img: "https://media.npr.org/assets/img/2021/08/11/gettyimages-1279899488_wide-e28def62c2d01ee6368d9aa312c68998415b5e72-s1100-c50.jpg",
-    tags: ["HTML", "CSS"],
-    linkedin_link: "https://www.linkedin.com/feed/",
-    website_link: "https://www.google.com/",
-    published: "on",
-});
+    newStudent = await db.models.Students.create({
+        userId: newUser._id,
+        name: "Louise Fluff",
+        date: new Date(),
+        bio: "Fill in bio",
+        profile_img: "https://media.npr.org/assets/img/2021/08/11/gettyimages-1279899488_wide-e28def62c2d01ee6368d9aa312c68998415b5e72-s1100-c50.jpg",
+        tags: ["HTML", "CSS"],
+        linkedin_link: "https://www.linkedin.com/feed/",
+        website_link: "https://www.google.com/",
+        published: "on",
+    });
 
 
 
@@ -103,16 +103,16 @@ export default function Seed() {
                     Seed the database
                 </button>
             </Form>
-            
+
             <h2>To log in you can use following emails:</h2>
-            <p>Emails:<br/>
-            kate@jobportal.com<br/>
-            john@jobportal.com<br/>
-            louise@jobportal.com<br/>
+            <p>Emails:<br />
+                kate@jobportal.com<br />
+                john@jobportal.com<br />
+                louise@jobportal.com<br />
             </p>
             <p>Password is always "jobportal" </p>
-            </div>
+        </div>
 
-            
+
     )
 }

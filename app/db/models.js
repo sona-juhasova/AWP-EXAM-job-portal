@@ -17,14 +17,14 @@ const students = new Schema({
   website_link: String, 
   profile_img: String,
   userId: String,
-  published: String,
+  published: String, 
 
 });
 
 const companies = new Schema({
   favourite: Array,
-
-
+  userId: String,
+ 
 });
 
 const users = new Schema({

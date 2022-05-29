@@ -1,41 +1,75 @@
 import { redirect } from "@remix-run/node";
 import { Link, Form, useLoaderData } from "@remix-run/react";
 import connectDb from "~/db/connectDb.server";
-import { requireUserSession } from "~/sessions.server";
-export async function loader({ params }) {
+import { getSession, requireUserSession } from "~/sessions.server";
+export async function loader({ params, request }) {
     const db = await connectDb();
     const student = await db.models.Students.findById(params.studentId);
 
-    return student;
+    const session = await getSession(request.headers.get("Cookie"));
+    const userId = session.get("userId");
+
+    const company = await db.models.Companies.findOne({
+        userId: userId
+    });
+    const favourite = company.favourite.indexOf(params.studentId) > -1;
+    return { student, favourite };
 }
 export async function action({ request }) {
     const session = await requireUserSession(request);
 
     const body = await request.formData();
-    var id = body.get("_id");
+    var studentId = body.get("_id");
     var action = body.get("action");
 
-    //favourite update for company
-    // if (action == "fav_update") {
-    //     const db = await connectDb();
-    //     const student = await db.models.Students.findById(id);
 
-    //     var model = {
-    //       favourite: !student.favourite,
-    //     };
 
-    //     db.models.Students.findByIdAndUpdate(id, model).exec();
-    //     return redirect("/students/" + id);
-    //   } 
-    //   return null;
+    // favourite update for company
+    if (action == "fav_update") {
+        const session = await getSession(request.headers.get("Cookie"));
+        const userId = session.get("userId");
+        console.log(userId);
+        const db = await connectDb();
+
+        const company = await db.models.Companies.findOne({
+            userId: userId
+        });
+        console.log(company);
+        // var model = {
+        //     favourite: student._id
+        // };
+        var model = {};
+        if (company.favourite.indexOf(studentId) > -1) {
+            //removefrom fauvorites 
+            model = {
+                $pull: { favourite: studentId }
+            };
+        } else {
+            model = {
+                $push: { favourite: studentId }
+            };
+        }
+
+
+        // db.models.Companies.updateOne( 
+        //     { $push: { favourite: student._id } }
+        //  ).exec();
+
+
+
+        db.models.Companies.findByIdAndUpdate(company._id, model).exec();
+
+        return redirect("/profile/" + studentId);
+
+    }
+    return null;
 }
 
 export default function Index() {
 
-
-    const student = useLoaderData();
+    const { student, favourite } = useLoaderData();
     var favButtonClassName = "#464646";
-    if (student.favourite == true) {
+    if (favourite == true) {
         favButtonClassName = "#1e8e8c";
     }
 
@@ -76,18 +110,18 @@ export default function Index() {
                         })}
                     </div>
 
-                        <a href={student.website_link} rel="noreferrer" className="link-website" target="_blank">Website link</a>
-                        <a href={student.linkedin_link} rel="noreferrer" className="link-website" target="_blank">Linkedin link</a>
-                    
-                     
-                    <p>Created: {student.date}</p>
+                    <a href={student.website_link} rel="noreferrer" className="link-website" target="_blank">Website link</a>
+                    <a href={student.linkedin_link} rel="noreferrer" className="link-website" target="_blank">Linkedin link</a>
+
+
+                    <p>Created: {student.date.substring(0, 10)}</p>
                 </div>
 
 
 
 
 
-                <div className=" fixed bottom-5 md:right-5 left-[11%] md:left-auto flex ">
+                <div className="">
                     <Form method="post">
                         <input
                             type="hidden"
@@ -100,7 +134,7 @@ export default function Index() {
                             value="fav_update"
                             id="fav_icon"
                             style={{ backgroundColor: favButtonClassName }}
-                            className={` ml-3 md:py-3 md:px-5 py-1 px-3 font-medium shadown-lg shadow-gray-900   rounded-md text-white`}
+
                         >
                             Favourite &#9733;
                         </button>

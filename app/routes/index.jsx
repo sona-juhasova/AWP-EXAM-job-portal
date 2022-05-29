@@ -6,22 +6,14 @@ import connectDb from "~/db/connectDb.server";
 
 export async function loader({ request }) {
   const db = await connectDb();
-  const url = new URL(request.url);
-  //const session = await requireUserSession(request);
-
-  //const userId = session.get("userId");
+  const url = new URL(request.url); 
 
   //  search
   var searchParams = {};
   const searchQuery = url.searchParams.get("searchQuery");
   if (searchQuery != null && searchQuery != "") {
-    searchParams.name = { $regex: searchQuery };
+    searchParams.name = { $regex: searchQuery, $options:"i" }; 
   }
-
-  
-
-  
- 
   
  
   const students = await db.models.Students.find(searchParams);
@@ -39,8 +31,7 @@ export async function loader({ request }) {
       });
   });
   
-
-
+ 
   return fitleredStudents;
 }
 
@@ -123,7 +114,7 @@ export default function Index() {
 
                 <div className="student-item-footer">
 
-                  <p>Created: {student.date}</p>
+                  <p>Created: {student.date.substring(0, 10)}</p>
 
                   <Link to={"/profile/" + student._id}>Read more</Link>
                 </div>

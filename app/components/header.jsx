@@ -9,6 +9,7 @@ export default function Header({ props }) {
         <div>
           <h1>Job portal for Students</h1>
            
+          <a href="/">Home</a>
           <a href="/update">Edit profile</a>
           <a href="/seed">Seed</a>
           <a href="/logout">Log out</a>
@@ -22,6 +23,8 @@ export default function Header({ props }) {
         <div>
           <h1>Job portal for Companies</h1>
 
+          <a href="/">Home</a>
+          <a href="/favourites">Favourites</a>
           <a href="/seed">Seed</a>
           <a href="/logout">Log out</a>
         </div>
@@ -36,6 +39,7 @@ export default function Header({ props }) {
 
         <h1>Job portal</h1>
 
+        <a href="/">Home</a>
         <a href="/seed">Seed</a>
         <a href="/login">Login</a> <br />
         <a href="/register">Register</a>

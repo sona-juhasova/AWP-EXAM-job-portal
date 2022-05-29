@@ -46,7 +46,17 @@ export async function action({ request }) {
       const newStudent = await db.models.Students.create({
         userId : newUser._id,
         tags: [],
-        published : false
+        published : false,
+        date: new Date()
+
+      });
+    }
+    if(userType === "company" )
+    {
+      const newCompany = await db.models.Companies.create({
+        userId : newUser._id,
+        favourite: [] 
+
       });
     }
     session.set("userId", newUser._id);
