@@ -343,40 +343,41 @@ header div h1 {
  
 }
 
-.profile-page .student-item .student-item-top {
+.profile-page .student-item {
     display: flex;
-    flex-direction: row;  
-    justify-content: start;
+    flex-direction: column;  
+    justify-content: center;
     alignt-items: center; 
     font-weight: 100;
     width: fit-content; 
+    width: 50%;
+    text-align: center;
+
 }
 
-.profile-page .student-item .student-item-top  img {
+.profile-page .student-item img {
     width: 300px;
-    height: 300px; 
-    margin-right: 20px;
+    height: 300px;  
     object-fit: cover;
-}
-
-
-.profile-page .student-item .student-item-top  .info-wrapper {
-
-    display: flex;
-    flex-direction: column;
-    width: 250px;
+    margin: 0 auto 30px;
+    border-radius: 50%;
 
 }
+
+
+ 
 
 .profile-page .student-item p {  
-    font-weight: 100;
+    font-weight: 100; 
 
 }
 
 .profile-page .student-item .student-name {
-    font-size: 20px;
+    font-size: 40px;
     font-weight: 400;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
+    font-family: Josefin Sans;
+    font-weight: 400;
 }
 
 .profile-page .student-item-footer { 
@@ -385,13 +386,16 @@ header div h1 {
 
 }
 
-
+.profile-page .student-item a {
+    margin: 0 0 20px;
+}
 
 .profile-page .tags-wrapper { 
     display: flex;
     flex-direction: row;
     margin: 20px 0;
     flex-wrap: wrap;
+    justify-content:center;
 }
 
 .profile-page .tags-wrapper .tag-item { 
@@ -402,6 +406,23 @@ header div h1 {
     margin: 0 10px 10px 0; 
 
 }
+
+.profile-page button {
+    background-color: #DBEBEF; 
+    padding: 10px 30px;
+    border: none;
+    outline: none;
+    text-transform: uppercase;
+    font-size: 18px;
+    margin: 30px auto 10px;
+ 
+ 
+ }
+ 
+ .profile-page button:hover {
+     cursor: pointer;
+ 
+ }
 
 /* update page */
 
@@ -572,7 +593,42 @@ header div h1 {
 
 }
 
+/* seed page */
 
+.seed-page {
+    min-height: calc(100vh - 250px);
+    justify-content: center;
+    align-content: center;
+    display: flex; 
+    width: 100vw;
+    flex-direction: column;
+    text-align: center;
+
+}
+.seed-page p {
+    margin: 5px auto;
+}
+.seed-page h3{
+    margin: 50px auto 10px;
+}
+
+
+.seed-page button {
+    background-color: #DBEBEF; 
+    padding: 10px 30px;
+    border: none;
+    outline: none;
+    text-transform: uppercase;
+    font-size: 18px;
+    margin: 30px auto 10px;
+ 
+ 
+ }
+ 
+ .seed-page button:hover {
+     cursor: pointer;
+ 
+ }
 
 
 /* footer */

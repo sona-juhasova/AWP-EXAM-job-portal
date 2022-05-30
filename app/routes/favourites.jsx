@@ -46,11 +46,11 @@ export default function Favourites() {
 
               <div className="info-wrapper">
                 <p className="student-name">{student.name}</p>
-                <p>{student.bio}</p>
+                <p className="line-clamp">{student.bio}</p>
 
                 <div className="tags-wrapper">
                   
-                  {student.tags.slice(0, 6).map((tag) => {
+                  {student.tags.slice(0, 3).map((tag) => {
                     return (
                       <div
                         key={tag}

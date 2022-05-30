@@ -231,7 +231,7 @@ export async function action({ request }) {
 
 export default function Seed() {
     return (
-        <div>
+        <div className="seed-page">
             <Form method="POST" className="">
 
                 <button
@@ -241,8 +241,8 @@ export default function Seed() {
                 </button>
             </Form>
 
-            <h2>To log in you can use following emails:</h2>
-            <p>Emails:<br />
+            <h3>To log in you can use following emails:</h3>
+            <p>
                 kate@jobportal.com<br />
                 john@jobportal.com<br />
                 louise@jobportal.com<br />

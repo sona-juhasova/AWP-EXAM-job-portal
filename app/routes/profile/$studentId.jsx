@@ -9,19 +9,25 @@ export async function loader({ params, request }) {
     const session = await getSession(request.headers.get("Cookie"));
     const userId = session.get("userId");
 
-    const company = await db.models.Companies.findOne({
-        userId: userId
-    });
-    const favourite = company.favourite.indexOf(params.studentId) > -1;
-    return { student, favourite };
+    const user = await db.models.Users.findById(userId);
+    var favourite = false;
+    if (user.user_type == "company") {
+        const company = await db.models.Companies.findOne({
+            userId: userId
+        });
+        favourite = company.favourite.indexOf(params.studentId) > -1;
+    }
+    return { student, favourite, user };
 }
 export async function action({ request }) {
-    const session = await requireUserSession(request);
+    await requireUserSession(request);
 
     const body = await request.formData();
     var studentId = body.get("_id");
     var action = body.get("action");
 
+
+    const db = await connectDb();
 
 
     // favourite update for company
@@ -29,15 +35,15 @@ export async function action({ request }) {
         const session = await getSession(request.headers.get("Cookie"));
         const userId = session.get("userId");
         console.log(userId);
-        const db = await connectDb();
+
+
+
 
         const company = await db.models.Companies.findOne({
             userId: userId
         });
         console.log(company);
-        // var model = {
-        //     favourite: student._id
-        // };
+
         var model = {};
         if (company.favourite.indexOf(studentId) > -1) {
             //removefrom fauvorites 
@@ -49,28 +55,26 @@ export async function action({ request }) {
                 $push: { favourite: studentId }
             };
         }
-
-
-        // db.models.Companies.updateOne( 
-        //     { $push: { favourite: student._id } }
-        //  ).exec();
-
-
-
         db.models.Companies.findByIdAndUpdate(company._id, model).exec();
 
         return redirect("/profile/" + studentId);
-
     }
-    return null;
 }
+
 
 export default function Index() {
 
-    const { student, favourite } = useLoaderData();
-    var favButtonClassName = "#464646";
+    const { student, favourite,user } = useLoaderData();
+    var favButtonClassName = "#dfdfdf";
     if (favourite == true) {
-        favButtonClassName = "#1e8e8c";
+        favButtonClassName = "#dbebef";
+    }
+    var favStyle = {};
+    if(user.user_type == "student")
+    {
+        favStyle = {
+            display: "none"
+        };
     }
 
     return (
@@ -85,43 +89,42 @@ export default function Index() {
                 key={student._id}
                 className="student-item"
             >
-                <div className="student-item-top">
 
-                    <img src={student.profile_img} alt="Profile image" />
+                <img src={student.profile_img} alt="Profile image" />
 
-                    <div className="info-wrapper">
-                        <p className="student-name">{student.name}</p>
-                        <p>{student.bio}</p>
-                    </div>
-                </div>
-                <div className="student-item-footer">
-
-                    <div className="tags-wrapper">
-
-                        {student.tags.map((tag) => {
-                            return (
-                                <div
-                                    key={tag}
-                                    className="tag-item"
-                                >
-                                    <p>{tag}</p>
-                                </div>)
-
-                        })}
-                    </div>
-
-                    <a href={student.website_link} rel="noreferrer" className="link-website" target="_blank">Website link</a>
-                    <a href={student.linkedin_link} rel="noreferrer" className="link-website" target="_blank">Linkedin link</a>
-
-
-                    <p>Created: {student.date.substring(0, 10)}</p>
+                <div className="info-wrapper">
+                    <p className="student-name">{student.name}</p>
+                    <p>{student.bio}</p>
                 </div>
 
 
 
+                <div className="tags-wrapper">
+
+                    {student.tags.map((tag) => {
+                        return (
+                            <div
+                                key={tag}
+                                className="tag-item"
+                            >
+                                <p>{tag}</p>
+                            </div>)
+
+                    })}
+                </div>
+
+                <a href={student.website_link} rel="noreferrer" className="link-website" target="_blank">Website link</a>
+                <a href={student.linkedin_link} rel="noreferrer" className="link-website" target="_blank">Linkedin link</a>
 
 
-                <div className="">
+                <p>Created: {student.date.substring(0, 10)}</p>
+
+
+
+
+
+
+                <div className="favourite-button" style={favStyle}>
                     <Form method="post">
                         <input
                             type="hidden"
