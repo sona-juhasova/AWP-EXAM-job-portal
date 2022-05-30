@@ -32,7 +32,7 @@ export default function Favourites() {
  
 
 
-      <div id="list-id">
+      <div id="list-id" className="students-grid">
         {students.map((student) => {
           
           return (

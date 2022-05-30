@@ -53,7 +53,7 @@ export async function action({ request }) {
             linkedin_link: body.get("linkedin_link"),
             website_link: body.get("website_link"),
             userId: session.get("userId"),
-            published: body.get("published"), 
+            published: body.get("published"),
         };
         console.log(model);
         try {
@@ -73,7 +73,7 @@ export default function UpdateStudent() {
     console.log(loaderData);
     const userId = loaderData.userId;
     const student = loaderData.student;
-    
+
     if (userId) {
 
         return (
@@ -82,11 +82,11 @@ export default function UpdateStudent() {
                     Back
                 </Link>
                 <div>
-                    <h1 >Edit</h1>
+                    <h1 className="edit-title">Edit Profile</h1>
 
                     <Form method="post">
                         <input type="hidden" defaultValue={student._id} name="_id" />
-                        <label>
+                        <label className="text-label">Name <br></br>
                             <input
                                 name="name"
                                 type="text"
@@ -95,69 +95,128 @@ export default function UpdateStudent() {
                             />
                         </label>
                         <br></br>
-                        <label>
+                        <label className="text-label">Bio <br></br>
                             <textarea
                                 name="bio"
                                 placeholder="Bio"
                                 defaultValue={student.bio}
-                            ></textarea>
+                                />
                         </label>
                         <br></br>
-                        <label>
-                            <textarea
+                        <label className="text-label">Profile image URL <br></br>
+                        <input
                                 name="profile_img"
+                                type="text"
                                 placeholder="Profile image URL"
                                 defaultValue={student.profile_img}
-                            ></textarea>
+                                />
                         </label>
                         <br></br>
-                        <label>
-                            <textarea
+                        <label className="text-label">LinkedIn URL  <br></br>
+                        <input
                                 name="linkedin_link"
+                                type="text"
                                 placeholder="Linkedin"
                                 defaultValue={student.linkedin_link}
-                            ></textarea>
+                                />
                         </label>
                         <br></br>
-                        <label>
-                            <textarea
+                        <label className="text-label">Website URL  <br></br>
+                        <input
                                 name="website_link"
+                                type="text"
                                 placeholder="Website"
                                 defaultValue={student.website_link}
-                            ></textarea>
+                                />
                         </label>
                         <br></br>
-                        <div id="select_tags">
-                            <div>
-                                <input type="checkbox" id="html" name="tags" value="HTML" defaultChecked={student.tags.indexOf("HTML") > -1} />
-                                <label htmlFor="html">HTML</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="css" name="tags" value="CSS" defaultChecked={student.tags.indexOf("CSS") > -1} />
-                                <label htmlFor="html">CSS</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="javascript" name="tags" value="JavaScript" defaultChecked={student.tags.indexOf("JavaScript") > -1} />
-                                <label htmlFor="javascript">JavaScript</label>
+                        <div className="filter">
+                            <p  className="text-label">Select tags</p>
+                            <div id="select_tags" className="filter-grid">
+                                <div>
+                                    <input type="checkbox" id="html" name="tags" value="HTML" defaultChecked={student.tags.indexOf("HTML") > -1} />
+                                    <label htmlFor="html">HTML</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="css" name="tags" value="CSS" defaultChecked={student.tags.indexOf("CSS") > -1} />
+                                    <label htmlFor="html">CSS</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="javascript" name="tags" value="JavaScript" defaultChecked={student.tags.indexOf("JavaScript") > -1} />
+                                    <label htmlFor="javascript">JavaScript</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="react" name="tags" value="React" defaultChecked={student.tags.indexOf("React") > -1} />
+                                    <label htmlFor="react">React</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="angular" name="tags" value="Angular" defaultChecked={student.tags.indexOf("Angular") > -1} />
+                                    <label htmlFor="angular">Angular</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="vue" name="tags" value="Vue.js" defaultChecked={student.tags.indexOf("Vue.js") > -1} />
+                                    <label htmlFor="vue">Vue.js</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="remix" name="tags" value="Remix" defaultChecked={student.tags.indexOf("Remix") > -1} />
+                                    <label htmlFor="remix">Remix</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="python" name="tags" value="Python" defaultChecked={student.tags.indexOf("Python") > -1} />
+                                    <label htmlFor="python">Python</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="bootstrap" name="tags" value="Bootstrap" defaultChecked={student.tags.indexOf("Bootstrap") > -1} />
+                                    <label htmlFor="bootstrap">Bootstrap</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="tailwind" name="tags" value="Tailwind" defaultChecked={student.tags.indexOf("Tailwind") > -1} />
+                                    <label htmlFor="tailwind">Tailwind</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="php" name="tags" value="PHP" defaultChecked={student.tags.indexOf("PHP") > -1} />
+                                    <label htmlFor="php">PHP</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="ionic" name="tags" value="Ionic" defaultChecked={student.tags.indexOf("Ionic") > -1} />
+                                    <label htmlFor="ionic">Ionic</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="mongodb" name="tags" value="MongoDB" defaultChecked={student.tags.indexOf("MongoDB") > -1} />
+                                    <label htmlFor="mongodb">MongoDB</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="mysql" name="tags" value="MySQL" defaultChecked={student.tags.indexOf("MySQL") > -1} />
+                                    <label htmlFor="mysql">MySQL</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="firebase" name="tags" value="Firebase" defaultChecked={student.tags.indexOf("Firebase") > -1} />
+                                    <label htmlFor="firebase">Firebase</label>
+                                </div>
+
                             </div>
 
                         </div>
                         <br></br>
-                        <label className="switch">
+                        <div className="toggle-wrapper">
+                        <label className="switch"> 
                             <input type="checkbox" name="published" defaultChecked={student.published == "on"}></input>
                             <span className="slider round"></span>
                         </label>
                         <p>Make profile public</p>
+                        </div>
                         <br></br>
+                        <div className="update-button">
                         <button name="action" value="update"
                             type="submit"
                         >
                             Save
                         </button>
+                        </div>
                     </Form>
 
                     {/* delete account button */}
-                    <Form method="post">
+                    <Form method="post" className="delete-button">
                         <input
                             type="hidden"
                             name="userId"
