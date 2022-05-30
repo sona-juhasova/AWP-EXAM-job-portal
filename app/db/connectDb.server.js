@@ -20,9 +20,9 @@ if (!MONGODB_URL) {
 // on file changes.
 export default async function connectDb() {
   // Reuse the existing Mongoose connection if we have one...
-  if (mongoose.connection?.readyState > 0) {
+  /*if (mongoose.connection?.readyState > 0) {
     return mongoose.connection;
-  }
+  }*/
 
   // ...or create a new connection:
   const conn = await mongoose
