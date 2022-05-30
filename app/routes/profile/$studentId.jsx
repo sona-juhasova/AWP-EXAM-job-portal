@@ -7,15 +7,17 @@ export async function loader({ params, request }) {
     const student = await db.models.Students.findById(params.studentId);
 
     const session = await getSession(request.headers.get("Cookie"));
-    const userId = session.get("userId");
-
-    const user = await db.models.Users.findById(userId);
-    var favourite = false;
-    if (user.user_type == "company") {
-        const company = await db.models.Companies.findOne({
-            userId: userId
-        });
-        favourite = company.favourite.indexOf(params.studentId) > -1;
+    const userId = session.get("userId"); 
+    var user = null;
+    if (userId) {
+        user = await db.models.Users.findById(userId);
+        var favourite = false;
+        if (user.user_type == "company") {
+            const company = await db.models.Companies.findOne({
+                userId: userId
+            });
+            favourite = company.favourite.indexOf(params.studentId) > -1;
+        }
     }
     return { student, favourite, user };
 }
@@ -64,14 +66,19 @@ export async function action({ request }) {
 
 export default function Index() {
 
-    const { student, favourite,user } = useLoaderData();
+    const { student, favourite, user } = useLoaderData();
     var favButtonClassName = "#dfdfdf";
     if (favourite == true) {
         favButtonClassName = "#dbebef";
     }
     var favStyle = {};
-    if(user.user_type == "student")
-    {
+    if (user) {
+        if (user.user_type == "student") {
+            favStyle = {
+                display: "none"
+            };
+        }
+    } else {
         favStyle = {
             display: "none"
         };
